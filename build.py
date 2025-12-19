@@ -6,6 +6,7 @@ from backend.generate_pages import (
 )
 from backend.generate_sitemap import generar_sitemap
 from backend.generate_robots import generar_robots
+from backend.generate_index import generar_index
 
 BASE_URL = "https://lightuf.vercel.app"
 
@@ -20,6 +21,7 @@ def build():
 
     generar_sitemap(tabla, BASE_URL)
     generar_robots(BASE_URL)
+    generar_index()
 
 
 if __name__ == "__main__":

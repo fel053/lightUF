@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /uf/
+
+Sitemap: https://https://tu-proyecto.vercel.app/sitemap.xml

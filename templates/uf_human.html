@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!--
+    IMPORTANTE:
+    Esta página es SOLO para humanos.
+    No queremos que Google la indexe.
+    Google debe indexar SOLO /uf/{numero}/
+  -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Responsive real -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Calculadora UF</title>
+
+    <!--
+    CSS INLINE
+    - 0 requests extra
+    - máxima velocidad
+    - fácil de mantener
+  -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Arial, sans-serif;
+        background: #ffffff;
+        color: #111;
+      }
+
+      /*
+      Layout:
+      - No completamente centrado (se ve más profesional en desktop)
+      - Cómodo en móvil
+    */
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 520px;
+        padding: 24px;
+        margin-top: 12vh; /* equilibrio visual desktop / móvil */
+        box-sizing: border-box;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+
+      input {
+        width: 100%;
+        font-size: 1.4rem;
+        padding: 14px 16px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        box-sizing: border-box;
+      }
+
+      input:focus {
+        border-color: #000;
+      }
+
+      button {
+        margin-top: 16px;
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        background: #000;
+        color: #fff;
+      }
+
+      button:active {
+        opacity: 0.85;
+      }
+
+      .hint {
+        margin-top: 14px;
+        font-size: 0.85rem;
+        color: #666;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="container">
+      <!--
+      Título humano:
+      No tiene fecha ni valor → no es SEO
+    -->
+      <h1>Calculadora UF</h1>
+
+      <!--
+      Input libre:
+      El usuario escribe cualquier número
+    -->
+      <input
+        id="uf-input"
+        type="number"
+        min="0"
+        step="any"
+        placeholder="Ej: 1400"
+        autocomplete="off"
+      />
+
+      <!--
+      Botón visible:
+      - clave para UX en móvil
+      - Enter sigue funcionando
+    -->
+      <button id="go-btn">Calcular</button>
+
+      <div class="hint">Ingresa un número y presiona Enter o el botón</div>
+    </main>
+
+    <!--
+    JS mínimo:
+    - no calcula
+    - no usa APIs
+    - no depende del backend
+    - solo redirige a HTML estático existente
+  -->
+   <script>
+  // UF del día (inyectado en build)
+  window.UF_VALOR = {{UF_VALOR}};
+
+  const input = document.getElementById("uf-input");
+  const button = document.getElementById("go-btn");
+
+  function go() {
+    const value = parseFloat(input.value);
+
+    if (isNaN(value) || value <= 0) return;
+
+    // Entero → página estática
+    if (Number.isInteger(value)) {
+      window.location.href = "/uf/" + value + "/";
+      return;
+    }
+
+    // Decimal → cálculo humano
+    const clp = Math.round(value * window.UF_VALOR);
+
+    alert(
+      value + " UF ≈ $" +
+      clp.toLocaleString("es-CL") +
+      " CLP\n\n" +
+      "UF del día: $" +
+      window.UF_VALOR.toLocaleString("es-CL")
+    );
+  }
+
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") go();
+  });
+
+  if (button) {
+    button.addEventListener("click", go);
+  }
+</script>
+
+  </body>
+</html>

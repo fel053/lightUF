@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Codificación estándar -->
+  <meta charset="utf-8">
+
+  <!-- Título específico por página (clave para SEO y snippet) -->
+  <title>60 UF en pesos chilenos hoy</title>
+
+  <!-- Canonical: URL oficial de esta página -->
+  <link rel="canonical" href="https://tu-proyecto.vercel.app/uf/60/">
+
+  <!-- Descripción clara y directa (Google la usa mucho) -->
+  <meta name="description"
+      content="60 UF equivalen a 2.380.685 pesos chilenos hoy 18 de diciembre de 2025.">
+
+  <!-- Responsive sin frameworks -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS inline para máxima velocidad -->
+  <style>
+    /* Reset mínimo */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Estilos base del sitio */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f6f6f6;
+      color: #111;
+    }
+
+    /* Contenedor general: controla la posición vertical */
+    .wrap {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 14vh;     /* Ajusta posición vertical global */
+      padding-bottom: 4vh;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    /* Tarjeta principal */
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Título de la consulta */
+    header h1 {
+      margin: 0 0 16px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #444;
+    }
+
+    /* Resultado principal */
+    .result {
+      margin-bottom: 20px;
+    }
+
+    /* Valor numérico (protagonista) */
+    .value {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    /* Unidad monetaria */
+    .currency {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-left: 6px;
+      color: #555;
+    }
+
+    /* Información secundaria (fecha, fuente) */
+    .meta {
+      font-size: 0.8rem;
+      color: #666;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+
+    .source {
+      margin-top: 4px;
+    }
+
+    /* Input para navegar a otra UF */
+    form {
+      border-top: 1px solid #eee;
+      padding-top: 16px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      font-size: 0.9rem;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      outline: none;
+    }
+
+    input[type="number"]:focus {
+      border-color: #bbb;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrap">
+    <main class="card">
+
+      <!-- Título visible (coincide con el title) -->
+      <header>
+        <h1>60 UF en pesos chilenos</h1>
+      </header>
+
+      <!-- Resultado principal -->
+      <section class="result">
+        <span class="value">$2.380.685</span>
+        <span class="currency">CLP</span>
+      </section>
+
+      <!-- Metadatos humanos -->
+      <section class="meta">
+        <p>Valor calculado con UF del <strong>18 de diciembre de 2025</strong>.</p>
+        <p class="source">Fuente: Banco Central de Chile</p>
+      </section>
+
+      <!-- Input: no calcula, solo redirige -->
+      <form>
+        <input
+          type="number"
+          name="v"
+          placeholder="Probar otro valor de UF"
+          inputmode="numeric"
+          min="1"
+        >
+      </form>
+
+    </main>
+  </div>
+
+  <!-- JS mínimo: navegación determinística -->
+  <script>
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const v = form.v.value;
+
+      // Redirige a una página ya precalculada
+      if (v) {
+        window.location.href = "/uf/" + v + "/";
+      }
+    });
+  </script>
+
+</body>
+</html>

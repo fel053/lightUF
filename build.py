@@ -7,7 +7,7 @@ from backend.generate_pages import (
 from backend.generate_sitemap import generar_sitemap
 from backend.generate_robots import generar_robots
 
-BASE_URL = "https://tu-proyecto.vercel.app"
+BASE_URL = "https://lightuf.vercel.app"
 
 
 def build():

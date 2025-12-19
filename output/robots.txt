@@ -1,6 +1,5 @@
 User-agent: *
-Allow: /
+Allow: /uf/
+Disallow: /uf/index.html
 
-Disallow: /uf/
-
-Sitemap: https://https://tu-proyecto.vercel.app/sitemap.xml
+Sitemap: https://lightuf.vercel.app/sitemap.xml

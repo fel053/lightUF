@@ -8,7 +8,7 @@ from backend.generate_sitemap import generar_sitemap
 from backend.generate_robots import generar_robots
 from backend.generate_index import generar_index
 
-BASE_URL = "https://lightuf.vercel.app"
+BASE_URL = "https://ufsimple.cl"
 
 
 def build():

@@ -137,44 +137,51 @@
     - no depende del backend
     - solo redirige a HTML estático existente
   -->
-   <script>
-  // UF del día (inyectado en build)
-  window.UF_VALOR = 39685.75;
+    <script>
+      // UF del día (inyectado en build)
+      const UF_VALOR = Number("39689.59");
 
-  const input = document.getElementById("uf-input");
-  const button = document.getElementById("go-btn");
+      const input = document.getElementById("uf-input");
+      const button = document.getElementById("go-btn");
+      const result = document.getElementById("result");
 
-  function go() {
-    const value = parseFloat(input.value);
+      // --- CÁLCULO HUMANO EN VIVO ---
+      input.addEventListener("input", () => {
+        const value = parseFloat(input.value);
 
-    if (isNaN(value) || value <= 0) return;
+        if (isNaN(value) || value <= 0) {
+          result.textContent = "Ingresa un número válido";
+          return;
+        }
 
-    // Entero → página estática
-    if (Number.isInteger(value)) {
-      window.location.href = "/uf/" + value + "/";
-      return;
-    }
+        // 👇 protección clave
+        if (isNaN(UF_VALOR)) {
+          result.textContent = "Calculadora activa al publicar el sitio";
+          return;
+        }
 
-    // Decimal → cálculo humano
-    const clp = Math.round(value * window.UF_VALOR);
+        const clp = Math.round(value * UF_VALOR);
 
-    alert(
-      value + " UF ≈ $" +
-      clp.toLocaleString("es-CL") +
-      " CLP\n\n" +
-      "UF del día: $" +
-      window.UF_VALOR.toLocaleString("es-CL")
-    );
-  }
+        result.textContent =
+          value + " UF ≈ $" + clp.toLocaleString("es-CL") + " CLP";
 
-  input.addEventListener("keydown", e => {
-    if (e.key === "Enter") go();
-  });
+        if (Number.isInteger(value)) {
+          result.textContent += " — presiona Enter para ver el detalle";
+        }
+      });
 
-  if (button) {
-    button.addEventListener("click", go);
-  }
-</script>
+      // --- CONFIRMACIÓN EXPLÍCITA ---
+      function confirm() {
+        const value = parseFloat(input.value);
+        if (!Number.isInteger(value) || value <= 0) return;
+        window.location.href = "/uf/" + value + "/";
+      }
 
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") confirm();
+      });
+
+      button.addEventListener("click", confirm);
+    </script>
   </body>
 </html>

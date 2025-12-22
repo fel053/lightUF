@@ -6,23 +6,20 @@
     <!--
     IMPORTANTE:
     Esta página es SOLO para humanos.
-    No queremos que Google la indexe.
     Google debe indexar SOLO /uf/{numero}/
-  -->
+    -->
     <meta name="robots" content="noindex, nofollow" />
 
-    <!-- Responsive real -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Calculadora UF</title>
 
-    <!--
-    CSS INLINE
-    - 0 requests extra
-    - máxima velocidad
-    - fácil de mantener
-  -->
     <style>
+      :root {
+        /* 👇 ajusta este color */
+        --accent-color: #d100ff;
+      }
+
       html,
       body {
         margin: 0;
@@ -34,11 +31,6 @@
         color: #111;
       }
 
-      /*
-      Layout:
-      - No completamente centrado (se ve más profesional en desktop)
-      - Cómodo en móvil
-    */
       body {
         display: flex;
         justify-content: center;
@@ -49,7 +41,7 @@
         width: 100%;
         max-width: 520px;
         padding: 24px;
-        margin-top: 12vh; /* equilibrio visual desktop / móvil */
+        margin-top: 12vh;
         box-sizing: border-box;
         text-align: center;
       }
@@ -68,31 +60,23 @@
         border-radius: 8px;
         outline: none;
         box-sizing: border-box;
+        transition: border-color 0.2s ease;
       }
 
       input:focus {
-        border-color: #000;
+        border-color: var(--accent-color);
       }
 
-      button {
-        margin-top: 16px;
-        width: 100%;
-        padding: 14px;
-        font-size: 1rem;
-        font-weight: 600;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        background: #000;
-        color: #fff;
-      }
-
-      button:active {
-        opacity: 0.85;
+      .result {
+        margin-top: 18px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--accent-color);
+        min-height: 1.5em;
       }
 
       .hint {
-        margin-top: 14px;
+        margin-top: 12px;
         font-size: 0.85rem;
         color: #666;
       }
@@ -101,16 +85,8 @@
 
   <body>
     <main class="container">
-      <!--
-      Título humano:
-      No tiene fecha ni valor → no es SEO
-    -->
       <h1>Calculadora UF</h1>
 
-      <!--
-      Input libre:
-      El usuario escribe cualquier número
-    -->
       <input
         id="uf-input"
         type="number"
@@ -120,41 +96,27 @@
         autocomplete="off"
       />
 
-      <!--
-      Botón visible:
-      - clave para UX en móvil
-      - Enter sigue funcionando
-    -->
-      <button id="go-btn">Calcular</button>
+      <!-- Resultado humano -->
+      <div id="result" class="result"></div>
 
-      <div class="hint">Ingresa un número y presiona Enter o el botón</div>
+      <div class="hint">El cálculo se actualiza automáticamente</div>
     </main>
 
-    <!--
-    JS mínimo:
-    - no calcula
-    - no usa APIs
-    - no depende del backend
-    - solo redirige a HTML estático existente
-  -->
     <script>
       // UF del día (inyectado en build)
-      const UF_VALOR = Number("39689.59");
+      const UF_VALOR = Number("39693.42");
 
       const input = document.getElementById("uf-input");
-      const button = document.getElementById("go-btn");
       const result = document.getElementById("result");
 
-      // --- CÁLCULO HUMANO EN VIVO ---
       input.addEventListener("input", () => {
         const value = parseFloat(input.value);
 
         if (isNaN(value) || value <= 0) {
-          result.textContent = "Ingresa un número válido";
+          result.textContent = "";
           return;
         }
 
-        // 👇 protección clave
         if (isNaN(UF_VALOR)) {
           result.textContent = "Calculadora activa al publicar el sitio";
           return;
@@ -164,24 +126,7 @@
 
         result.textContent =
           value + " UF ≈ $" + clp.toLocaleString("es-CL") + " CLP";
-
-        if (Number.isInteger(value)) {
-          result.textContent += " — presiona Enter para ver el detalle";
-        }
       });
-
-      // --- CONFIRMACIÓN EXPLÍCITA ---
-      function confirm() {
-        const value = parseFloat(input.value);
-        if (!Number.isInteger(value) || value <= 0) return;
-        window.location.href = "/uf/" + value + "/";
-      }
-
-      input.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") confirm();
-      });
-
-      button.addEventListener("click", confirm);
     </script>
   </body>
 </html>

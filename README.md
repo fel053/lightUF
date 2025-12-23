@@ -8,6 +8,7 @@ el valor diario publicado por mindicador.cl.
 - HTML estático por cada valor UF
 - Sitemap y robots generados automáticamente
 - Página humana no indexable
+- Vercel Web Analytics integrado para tracking de visitantes
 
 ## Build
 ```bash

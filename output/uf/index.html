@@ -13,11 +13,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Calculadora UF</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <style>
       :root {
         /* 👇 ajusta este color */
-        --accent-color: #d100ff;
+        --accent-color: #ff00ee;
       }
 
       html,
@@ -41,9 +42,19 @@
         width: 100%;
         max-width: 520px;
         padding: 24px;
-        margin-top: 12vh;
+        margin-top: 14vh;
         box-sizing: border-box;
         text-align: center;
+      }
+
+      .container::before {
+        content: "";
+        display: block;
+        width: 32px;
+        height: 2px;
+        background: var(--accent-color);
+        margin: 0 auto 20px auto;
+        opacity: 0.6;
       }
 
       h1 {
@@ -68,11 +79,17 @@
       }
 
       .result {
-        margin-top: 18px;
-        font-size: 1.1rem;
-        font-weight: 500;
+        margin-top: 20px;
+        font-size: 1.8rem;
+        font-weight: 600;
         color: var(--accent-color);
+        letter-spacing: -0.01em;
         min-height: 1.5em;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+      .result.visible {
+        opacity: 1;
       }
 
       .hint {
@@ -80,12 +97,25 @@
         font-size: 0.85rem;
         color: #666;
       }
+
+      .footer {
+        margin-top: 28px;
+        font-size: 0.8rem;
+        color: #666;
+        font-style: italic;
+      }
+
+      .footer .source {
+        margin-top: 4px;
+        font-style: normal;
+        opacity: 0.75;
+      }
     </style>
   </head>
 
   <body>
     <main class="container">
-      <h1>Calculadora UF</h1>
+      <h1>Calculadora de UF a pesos</h1>
 
       <input
         id="uf-input"
@@ -100,32 +130,38 @@
       <div id="result" class="result"></div>
 
       <div class="hint">El cálculo se actualiza automáticamente</div>
+      <footer class="footer">
+        <p>
+          Valor calculado con la UF de hoy. 1 UF ≈ $39701.09 pesos chilenos.
+        </p>
+        <p class="source">Fuente: Banco Central de Chile</p>
+      </footer>
     </main>
 
     <script>
       // UF del día (inyectado en build)
-      const UF_VALOR = Number("39697.26");
+      const UF_VALOR = Number("39701.09") || 36000;
 
       const input = document.getElementById("uf-input");
       const result = document.getElementById("result");
 
       input.addEventListener("input", () => {
-        const value = parseFloat(input.value);
+        // Normalizar coma → punto
+        const normalized = input.value.replace(",", ".");
+        const value = parseFloat(normalized);
 
         if (isNaN(value) || value <= 0) {
           result.textContent = "";
-          return;
-        }
-
-        if (isNaN(UF_VALOR)) {
-          result.textContent = "Calculadora activa al publicar el sitio";
+          result.classList.remove("visible");
           return;
         }
 
         const clp = Math.round(value * UF_VALOR);
 
-        result.textContent =
-          value + " UF ≈ $" + clp.toLocaleString("es-CL") + " CLP";
+        result.textContent = "$" + clp.toLocaleString("es-CL");
+
+        // 👇 clave: vuelve a mostrarse siempre
+        result.classList.add("visible");
       });
     </script>
   </body>

@@ -15,6 +15,12 @@
     <title>Calculadora UF</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
+    <!-- Vercel Web Analytics -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
     <style>
       :root {
         /* 👇 ajusta este color */
@@ -162,6 +168,14 @@
 
         // 👇 clave: vuelve a mostrarse siempre
         result.classList.add("visible");
+
+        // Track analytics event
+        if (window.va) {
+          window.va('conversion', {
+            value: clp,
+            ufInput: value
+          });
+        }
       });
     </script>
   </body>

@@ -21,6 +21,12 @@
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
+    <!-- Vercel Web Analytics -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
     <!-- CSS inline para máxima velocidad -->
     <style>
       /* Reset mínimo */
@@ -196,6 +202,17 @@
         "description": "Conversión de {{UF}}uf a pesos chilenos con valor actualizado.",
         "areaServed": "CL",
         "currency": "CLP"
+      }
+    </script>
+
+    <!-- Track analytics event for conversions -->
+    <script>
+      // Track page view with custom event data
+      if (window.va) {
+        window.va('pageview', {
+          ufValue: {{UF}},
+          clpValue: '{{CLP}}'
+        });
       }
     </script>
   </body>

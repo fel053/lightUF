@@ -1,5 +1,4 @@
 from pathlib import Path
-import json
 
 
 def generar_tabla(uf_valor, max_uf=5000):
@@ -29,8 +28,11 @@ def generar_htmls_estaticos(tabla, fecha, base_url, uf_valor):
             .replace("{{CLP}}", f"{clp:,}".replace(",", "."))
             .replace("{{FECHA}}", fecha)
             .replace("{{CANONICAL_URL}}", canonical)
+            # 👉 número PURO para JS
+            .replace("{{UF_VALOR_NUM}}", str(uf_valor))
+            # 👉 texto humano para footer
             .replace(
-                "{{UF_VALOR}}",
+                "{{UF_VALOR_HUMANO}}",
                 f"{round(uf_valor):,}".replace(",", ".")
             )
         )
@@ -50,10 +52,16 @@ def generar_html_humano(tabla, uf_valor):
     Esta página NO es indexable y solo redirige.
     """
     template = Path("templates/uf_human.html").read_text(encoding="utf-8")
+
     html = (
-        template.replace("{{UF_VALOR}}",
-                          f"{round(uf_valor):,}".replace(",", ".")
-                        )
+        template
+        # 👉 número PURO para la calculadora JS
+        .replace("{{UF_VALOR_NUM}}", str(uf_valor))
+        # 👉 texto humano visible
+        .replace(
+            "{{UF_VALOR_HUMANO}}",
+            f"{round(uf_valor):,}".replace(",", ".")
+        )
     )
 
     output_dir = Path("output/uf")

@@ -214,7 +214,8 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
         <form>
           <input
             id="open-calc"
-            type="number"
+            name="uf"
+            type="text"
             placeholder="Probar otro valor de UF"
             inputmode="numeric"
           />
@@ -259,7 +260,7 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const v = form.v.value;
+        const v = form.uf.value;
 
         // Redirige a una página ya precalculada
         if (v) {
@@ -274,7 +275,7 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
       const result = document.getElementById("human-result");
 
       // UF del día (inyectado en build)
-      const UF_VALOR = Number("{{UF_VALOR}}") || 36000;
+      const UF_VALOR = parseFloat("{{UF_VALOR_NUM}}") || 36000;
 
       trigger.addEventListener("focus", () => {
         calc.classList.remove("hidden");

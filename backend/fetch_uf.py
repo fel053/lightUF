@@ -1,11 +1,12 @@
 import requests
 from datetime import datetime
 
-
-MESES_ES = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
-]
+MESES_ES = {
+    1: "enero", 2: "febrero", 3: "marzo",
+    4: "abril", 5: "mayo", 6: "junio",
+    7: "julio", 8: "agosto", 9: "septiembre",
+    10: "octubre", 11: "noviembre", 12: "diciembre"
+}
 
 
 def obtener_uf():
@@ -35,7 +36,7 @@ def obtener_uf():
     # Fecha en español SIN locale
     fecha = (
         f"{fecha_dt.day} de "
-        f"{MESES_ES[fecha_dt.month - 1]} de "
+        f"{MESES_ES[fecha_dt.month]} de "
         f"{fecha_dt.year}"
     )
 

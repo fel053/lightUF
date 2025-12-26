@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
 
     <!-- Título específico por página (clave para SEO y snippet) -->
-    <title>3448UF en pesos chilenos hoy | ufsimple.cl</title>
+    <title>¿Cuánto es 3448 UF en pesos hoy | ufsimple.cl</title>
 
     <!-- Canonical: URL oficial de esta página -->
     <link rel="canonical" href="https://ufsimple.cl/uf/3448/" />
@@ -13,7 +13,9 @@
     <!-- Descripción clara y directa (Google la usa mucho) -->
     <meta
       name="description"
-      content="descubre cuánto es 3448UF en pesos chilenos hoy 25 de December de 2025. Valor actualizado de la UF, sin cálculos ni tablas confusas."
+      content="Consulta cuánto es 3448 UF en pesos chilenos hoy 26 de December de 2025. 
+Valor oficial de la UF según el Banco Central, claro y sin cálculos.
+"
     />
 
     <!-- Responsive sin frameworks -->
@@ -35,6 +37,14 @@
           Roboto, Helvetica, Arial, sans-serif;
         background: #f6f6f6;
         color: #111;
+      }
+
+      :root {
+        --input-font-size: 1.4rem;
+        --input-padding: 14px 16px;
+        --input-radius: 8px;
+        --input-border: 1px solid #ccc;
+        --accent-color: #ff00ee;
       }
 
       /* Contenedor general: controla la posición vertical */
@@ -70,14 +80,31 @@
 
       /* Resultado principal */
       .result {
-        margin-bottom: 20px;
+        margin-top: 14px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
       }
 
-      /* Valor numérico (protagonista) */
-      .value {
+      .result.visible {
+        opacity: 1;
+      }
+
+      .result .value {
         font-size: 2.2rem;
         font-weight: 600;
         letter-spacing: -0.02em;
+        color: var(--accent-color);
+      }
+
+      .result .currency {
+        font-size: 0.85rem;
+        color: #666;
+        margin-left: 6px;
+      }
+
+      .result::before {
+        content: "≈ ";
+        color: var(--accent-color);
       }
 
       /* Unidad monetaria */
@@ -106,16 +133,16 @@
         padding-top: 16px;
       }
 
-      input[type="number"] {
+      input {
         width: 100%;
-        font-size: 0.9rem;
-        padding: 10px 12px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
+        font-size: var(--input-font-size);
+        padding: var(--input-padding);
+        border-radius: var(--input-radius);
+        border: var(--input-border);
         outline: none;
       }
 
-      input[type="number"]:focus {
+      input:focus {
         border-color: #bbb;
       }
 
@@ -123,6 +150,22 @@
         max-width: 520px;
         text-align: center;
         margin-top: 24px;
+      }
+
+      .human-calc.hidden {
+        display: none;
+      }
+
+      .human-calc {
+        margin-top: 12px;
+        opacity: 0;
+        transform: translateY(-6px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+
+      .human-calc.visible {
+        opacity: 1;
+        transform: translateY(0);
       }
     </style>
   </head>
@@ -137,26 +180,41 @@
 
         <!-- Resultado principal -->
         <section class="result">
-          <span class="value">$136.902.599</span>
-          <span class="currency">CLP</span>
+          <span class="value">$136.915.839</span>
+          <span class="currency">
+            <!--CLP-->
+          </span>
         </section>
 
         <!-- Metadatos humanos -->
         <section class="meta">
-          <p>Valor calculado con UF del <strong>25 de December de 2025</strong>.</p>
+          <p>Valor calculado con UF del <strong>26 de December de 2025</strong>.</p>
           <p class="source">Fuente: Banco Central de Chile</p>
         </section>
 
         <!-- Input: no calcula, solo redirige -->
         <form>
           <input
+            id="open-calc"
             type="number"
-            name="v"
             placeholder="Probar otro valor de UF"
             inputmode="numeric"
-            min="1"
           />
         </form>
+        <section id="human-calc" class="human-calc hidden">
+          <input
+            id="uf-input-human"
+            type="text"
+            inputmode="decimal"
+            placeholder="Ej: 1400 o 1400,5"
+            autocomplete="off"
+          />
+
+          <div id="human-result" class="result">
+            <span class="value"></span>
+            <span class="currency">pesos chilenos</span>
+          </div>
+        </section>
       </main>
       <footer>
         <p
@@ -170,6 +228,9 @@
           Si buscas <strong>3448uf</strong>, este es el valor equivalente en
           pesos chilenos hoy.
         </p>
+        <div style="font-size: 0.75em; opacity: 0.6; margin-top: 6px">
+          1 UF = ${{UF_VALOR}} pesos chilenos · Fuente: Banco Central de Chile
+        </div>
         <a href="/uf/3448/" style="display: none">3448uf en pesos</a>
       </footer>
     </div>
@@ -188,6 +249,41 @@
         }
       });
     </script>
+    <script>
+      const trigger = document.getElementById("open-calc");
+      const calc = document.getElementById("human-calc");
+      const input = document.getElementById("uf-input-human");
+      const result = document.getElementById("human-result");
+
+      // UF del día (inyectado en build)
+      const UF_VALOR = Number("{{UF_VALOR}}") || 36000;
+
+      trigger.addEventListener("focus", () => {
+        calc.classList.remove("hidden");
+        calc.classList.add("visible");
+        trigger.style.display = "none";
+        setTimeout(() => input.focus(), 0);
+      });
+
+      input.addEventListener("input", () => {
+        const normalized = input.value.replace(",", ".");
+        const value = parseFloat(normalized);
+
+        if (isNaN(value) || value <= 0) {
+          result.querySelector(".value").textContent = "";
+          result.classList.remove("visible");
+          return;
+        }
+
+        const clp = Math.round(value * UF_VALOR);
+
+        result.querySelector(".value").textContent =
+          "$" + clp.toLocaleString("es-CL");
+
+        result.classList.add("visible");
+      });
+    </script>
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

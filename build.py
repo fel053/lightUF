@@ -16,7 +16,7 @@ def build():
 
     tabla = generar_tabla(uf_valor)
 
-    generar_htmls_estaticos(tabla, fecha, BASE_URL)
+    generar_htmls_estaticos(tabla, fecha, BASE_URL, uf_valor)
     generar_html_humano(tabla, uf_valor)
 
     generar_sitemap(tabla, BASE_URL)

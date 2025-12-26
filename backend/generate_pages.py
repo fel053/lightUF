@@ -13,7 +13,7 @@ def generar_tabla(uf_valor, max_uf=5000):
     return tabla
 
 
-def generar_htmls_estaticos(tabla, fecha, base_url):
+def generar_htmls_estaticos(tabla, fecha, base_url, uf_valor):
     """
     Genera una página HTML estática por cada valor de UF.
     Estas páginas son las que Google indexa.
@@ -29,6 +29,10 @@ def generar_htmls_estaticos(tabla, fecha, base_url):
             .replace("{{CLP}}", f"{clp:,}".replace(",", "."))
             .replace("{{FECHA}}", fecha)
             .replace("{{CANONICAL_URL}}", canonical)
+            .replace(
+                "{{UF_VALOR}}",
+                f"{round(uf_valor):,}".replace(",", ".")
+            )
         )
 
         output_dir = Path(f"output/uf/{uf}")

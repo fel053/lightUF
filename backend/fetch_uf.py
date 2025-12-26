@@ -1,6 +1,11 @@
 import requests
 from datetime import datetime
-import locale
+
+
+MESES_ES = [
+    "enero", "febrero", "marzo", "abril", "mayo", "junio",
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+]
 
 
 def obtener_uf():
@@ -8,7 +13,7 @@ def obtener_uf():
     Obtiene el valor de la UF del día desde mindicador.cl
     Retorna:
       - valor UF (float)
-      - fecha formateada en español
+      - fecha formateada en español (ej: 26 de diciembre de 2025)
     """
 
     url = "https://mindicador.cl/api/uf"
@@ -27,12 +32,11 @@ def obtener_uf():
         fecha_raw.replace("Z", "")
     )
 
-    # Formato humano (ej: 17 de diciembre de 2025)
-    try:
-        locale.setlocale(locale.LC_TIME, "es_CL.UTF-8")
-    except:
-        pass  # por si el locale no está disponible en Windows
-
-    fecha = fecha_dt.strftime("%d de %B de %Y")
+    # Fecha en español SIN locale
+    fecha = (
+        f"{fecha_dt.day} de "
+        f"{MESES_ES[fecha_dt.month - 1]} de "
+        f"{fecha_dt.year}"
+    )
 
     return valor, fecha

@@ -51,7 +51,9 @@ def generar_html_humano(tabla, uf_valor):
     """
     template = Path("templates/uf_human.html").read_text(encoding="utf-8")
     html = (
-        template.replace("{{UF_VALOR}}", str(uf_valor))
+        template.replace("{{UF_VALOR}}",
+                          f"{round(uf_valor):,}".replace(",", ".")
+                        )
     )
 
     output_dir = Path("output/uf")

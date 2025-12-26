@@ -81,19 +81,13 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
       /* Resultado principal */
       .result {
         margin-top: 14px;
-        opacity: 0;
-        transition: opacity 0.2s ease;
-      }
-
-      .result.visible {
-        opacity: 1;
       }
 
       .result .value {
         font-size: 2.2rem;
         font-weight: 600;
         letter-spacing: -0.02em;
-        color: var(--accent-color);
+        color: #111; /* neutral y confiable */
       }
 
       .result .currency {
@@ -167,6 +161,30 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
         opacity: 1;
         transform: translateY(0);
       }
+
+      /* Resultado del cálculo humano (animado) */
+      .human-result {
+        margin-top: 12px;
+        opacity: 0;
+        transform: translateY(-6px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+
+      .human-result.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .human-result .value {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: var(--accent-color);
+      }
+
+      .human-result .currency {
+        font-size: 0.9rem;
+        color: #555;
+      }
     </style>
   </head>
 
@@ -210,7 +228,7 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
             autocomplete="off"
           />
 
-          <div id="human-result" class="result">
+          <div id="human-result" class="human-result">
             <span class="value"></span>
             <span class="currency">pesos chilenos</span>
           </div>

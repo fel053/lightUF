@@ -1,7 +1,0 @@
-{
-  "framework": null,
-  "buildCommand": "python build.py",
-  "outputDirectory": "output",
-  "cleanUrls": true,
-  "trailingSlash": true
-}

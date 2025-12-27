@@ -13,7 +13,7 @@
     <!-- Descripción clara y directa (Google la usa mucho) -->
     <meta
       name="description"
-      content="Consulta cuánto es 2386 UF en pesos chilenos hoy 26 de December de 2025. 
+      content="Consulta cuánto es 2386 UF en pesos chilenos hoy 27 de diciembre de 2025. 
 Valor oficial de la UF según el Banco Central, claro y sin cálculos.
 "
     />
@@ -81,19 +81,13 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
       /* Resultado principal */
       .result {
         margin-top: 14px;
-        opacity: 0;
-        transition: opacity 0.2s ease;
-      }
-
-      .result.visible {
-        opacity: 1;
       }
 
       .result .value {
         font-size: 2.2rem;
         font-weight: 600;
         letter-spacing: -0.02em;
-        color: var(--accent-color);
+        color: #111; /* neutral y confiable */
       }
 
       .result .currency {
@@ -167,6 +161,30 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
         opacity: 1;
         transform: translateY(0);
       }
+
+      /* Resultado del cálculo humano (animado) */
+      .human-result {
+        margin-top: 12px;
+        opacity: 0;
+        transform: translateY(-6px);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+      }
+
+      .human-result.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .human-result .value {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: var(--accent-color);
+      }
+
+      .human-result .currency {
+        font-size: 0.9rem;
+        color: #555;
+      }
     </style>
   </head>
 
@@ -180,7 +198,7 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
 
         <!-- Resultado principal -->
         <section class="result">
-          <span class="value">$94.745.125</span>
+          <span class="value">$94.754.264</span>
           <span class="currency">
             <!--CLP-->
           </span>
@@ -188,7 +206,7 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
 
         <!-- Metadatos humanos -->
         <section class="meta">
-          <p>Valor calculado con UF del <strong>26 de December de 2025</strong>.</p>
+          <p>Valor calculado con UF del <strong>27 de diciembre de 2025</strong>.</p>
           <p class="source">Fuente: Banco Central de Chile</p>
         </section>
 
@@ -196,7 +214,8 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
         <form>
           <input
             id="open-calc"
-            type="number"
+            name="uf"
+            type="text"
             placeholder="Probar otro valor de UF"
             inputmode="numeric"
           />
@@ -210,7 +229,7 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
             autocomplete="off"
           />
 
-          <div id="human-result" class="result">
+          <div id="human-result" class="human-result">
             <span class="value"></span>
             <span class="currency">pesos chilenos</span>
           </div>
@@ -229,7 +248,7 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
           pesos chilenos hoy.
         </p>
         <div style="font-size: 0.75em; opacity: 0.6; margin-top: 6px">
-          1 UF = ${{UF_VALOR}} pesos chilenos · Fuente: Banco Central de Chile
+          1 UF = $39.713 pesos chilenos · Fuente: Banco Central de Chile
         </div>
         <a href="/uf/2386/" style="display: none">2386uf en pesos</a>
       </footer>
@@ -241,7 +260,7 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const v = form.v.value;
+        const v = form.uf.value;
 
         // Redirige a una página ya precalculada
         if (v) {
@@ -256,7 +275,7 @@ Valor oficial de la UF según el Banco Central, claro y sin cálculos.
       const result = document.getElementById("human-result");
 
       // UF del día (inyectado en build)
-      const UF_VALOR = Number("{{UF_VALOR}}") || 36000;
+      const UF_VALOR = parseFloat("39712.6") || 36000;
 
       trigger.addEventListener("focus", () => {
         calc.classList.remove("hidden");
